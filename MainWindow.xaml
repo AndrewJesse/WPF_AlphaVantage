@@ -4,9 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_AlphaVantage"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Stock Data" Height="450" Width="800">
     <Grid>
-
+        <Button Content="Load Data" HorizontalAlignment="Left" VerticalAlignment="Top" Click="LoadData_Click" Margin="10" />
+        <lvc:CartesianChart x:Name="CandlestickChart" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,40,0,0" />
     </Grid>
 </Window>
