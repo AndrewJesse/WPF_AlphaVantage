@@ -35,7 +35,12 @@ public class AlphaVantage
                 {
                     if (entry.Value != null)
                     {
-                        dailyPrices.Add((entry.Key, decimal.Parse(entry.Value.Open), decimal.Parse(entry.Value.High), decimal.Parse(entry.Value.Low), decimal.Parse(entry.Value.Close)));
+                        decimal open = entry.Value.Open != null ? decimal.Parse(entry.Value.Open) : 0;
+                        decimal high = entry.Value.High != null ? decimal.Parse(entry.Value.High) : 0;
+                        decimal low = entry.Value.Low != null ? decimal.Parse(entry.Value.Low) : 0;
+                        decimal close = entry.Value.Close != null ? decimal.Parse(entry.Value.Close) : 0;
+
+                        dailyPrices.Add((entry.Key, open, high, low, close));
                     }
                 }
             }

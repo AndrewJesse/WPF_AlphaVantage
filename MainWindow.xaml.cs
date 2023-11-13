@@ -25,7 +25,7 @@ namespace WPF_AlphaVantage
     /// </summary>
     public partial class MainWindow : Window
     {
-        private AlphaVantage alphaVantage;
+        private AlphaVantage? alphaVantage;
 
         public MainWindow()
         {
@@ -63,8 +63,11 @@ namespace WPF_AlphaVantage
         private async void LoadData_Click(object sender, RoutedEventArgs e)
         {
             var symbol = "SPY"; // Replace with the desired stock symbol
-            var data = await alphaVantage.GetDailyPricesAsync(symbol);
-            UpdateChart(data);
+            if (alphaVantage != null)
+            {
+                var data = await alphaVantage.GetDailyPricesAsync(symbol);
+                UpdateChart(data);
+            }
         }
 
         private void UpdateChart(List<(string date, decimal open, decimal high, decimal low, decimal close)> stockData)
