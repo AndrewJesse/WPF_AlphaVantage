@@ -8,7 +8,19 @@
         mc:Ignorable="d"
         Title="Stock Data" Height="450" Width="800">
     <Grid>
-        <Button Content="Load Data" HorizontalAlignment="Left" VerticalAlignment="Top" Click="LoadData_Click" Margin="10" />
-        <lvc:CartesianChart x:Name="CandlestickChart" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,40,0,0" />
+        <!-- Load Data Button -->
+        <Button Content="Load Data"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Click="LoadData_Click"
+                Margin="10" />
+
+        <!-- Candlestick Chart -->
+        <lvc:CartesianChart x:Name="CandlestickChart"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Margin="0,40,0,0">
+            <!-- Chart configuration goes here if needed -->
+        </lvc:CartesianChart>
     </Grid>
 </Window>

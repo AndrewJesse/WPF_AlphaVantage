@@ -14,6 +14,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using LiveCharts;
+using LiveCharts.Defaults;
+using LiveCharts.Wpf;
 
 namespace WPF_AlphaVantage
 {
@@ -38,16 +41,49 @@ namespace WPF_AlphaVantage
             {
                 alphaVantage = new AlphaVantage(jsonObject.api_key);
             }
-            else
+            ConfigureChart();
+        }
+
+        private void ConfigureChart()
+        {
+            // Set up the series collection and assign it to the chart
+            CandlestickChart.Series = new SeriesCollection
+        {
+            // Add a placeholder series - we'll populate it with data later
+            new CandleSeries
             {
+                Title = "Stock Data",
+                Values = new ChartValues<OhlcPoint>()
             }
+        };
+
+            // You can add more configuration here, like setting up axes, labels, etc.
         }
 
         private async void LoadData_Click(object sender, RoutedEventArgs e)
         {
-            var data = await alphaVantage.GetDailyPricesAsync("SPY");
+            var symbol = "SPY"; // Replace with the desired stock symbol
+            var data = await alphaVantage.GetDailyPricesAsync(symbol);
+            UpdateChart(data);
+        }
 
-            // TODO: Add logic to process and display this data in a chart
+        private void UpdateChart(List<(string date, decimal open, decimal high, decimal low, decimal close)> stockData)
+        {
+            // Clear existing data
+            if (CandlestickChart.Series.Count > 0)
+            {
+                CandlestickChart.Series[0].Values.Clear();
+            }
+            if (CandlestickChart.Series.Count == 0)
+            {
+                return;
+            }
+
+            // Convert the data to OhlcPoints and add them to the chart
+            foreach (var (date, open, high, low, close) in stockData)
+            {
+                CandlestickChart.Series[0].Values.Add(new OhlcPoint((double)open, (double)high, (double)low, (double)close));
+            }
         }
     }
 }
