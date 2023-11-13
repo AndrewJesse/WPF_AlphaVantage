@@ -77,10 +77,13 @@ namespace WPF_AlphaVantage
             {
                 CandlestickChart.Series[0].Values.Clear();
             }
-            if (CandlestickChart.Series.Count == 0)
+            else
             {
                 return;
             }
+
+            // Reverse the order of the data so that the newest date is on the right
+            stockData.Reverse();
 
             // Convert the data to OhlcPoints and add them to the chart
             foreach (var (date, open, high, low, close) in stockData)
